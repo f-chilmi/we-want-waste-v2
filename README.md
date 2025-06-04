@@ -1,12 +1,72 @@
-# React + Vite
+# Skip Size Selector
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This React project allows users to browse, filter, and sort skip sizes available for hire based on a specified location (postcode and area).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dynamic Skip Loading**: Fetches skip data from an API.
 
-## Expanding the ESLint configuration
+- **Filtering**:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+  - **Price Range**: Filter skips within a specified price range.
+  - **Size Range**: Filter skips by skip size (in yards).
+  - **Road Placement**: Filter for skips that are "Road Legal", "Private Only", or "All Types".
+  - **Heavy Waste**: Filter for skips that allow heavy waste ("Heavy OK", "No Heavy", or "All Types").
+
+- **Sorting**: Sort skips by price or size in ascending or descending order.
+
+- **Loading State**: Displays a loading skeleton while fetching data.
+
+- **Responsive Design**: Adapts the layout for different screen sizes.
+
+- **Filter Management**:
+  - Toggle filter visibility.
+  - Indicates when active filters are applied.
+  - Option to reset all filters.
+
+## Components Used
+
+This component integrates with various UI components from Shadcn UI library
+
+## Data Structure
+
+The component expects skip data in the following format:
+
+```typescript
+interface Skip {
+  id: number;
+  size: number; // Skip size in yards
+  hire_period_days: number;
+  price_before_vat: number;
+  vat: number; // VAT rate as a percentage
+  allowed_on_road: boolean; // true if road legal, false if private only
+  allows_heavy_waste: boolean; // true if allows heavy waste
+}
+```
+
+## How to Run
+
+To run this project locally, follow these steps:
+
+1.  Clone the repository:
+
+    ```bash
+    git clone https://github.com/f-chilmi/we-want-waste-v2.git
+    ```
+
+2.  Navigate to the project directory:
+
+    ```
+    cd we-want-waste-v2
+    ```
+
+3.  Install dependencies:
+
+    ```
+    npm install
+    ```
+
+4.  Start the development server:
+    ```
+    npm run dev
+    ```
