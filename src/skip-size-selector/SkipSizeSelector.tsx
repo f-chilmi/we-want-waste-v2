@@ -299,8 +299,8 @@ const SkipSizeSelector = () => {
                 value={`${filters.sortBy}-${filters.sortOrder}`}
                 onValueChange={handleSortChange}
               >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue />
+                <SelectTrigger className="w-[180px] bg-background">
+                  <SelectValue className="bg-background" />
                 </SelectTrigger>
                 <SelectContent>
                   {SizeOptions.map(({ value, label }) => (
