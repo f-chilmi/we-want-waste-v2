@@ -52,3 +52,11 @@ export const INITIAL_FILTERS = {
   sortBy: "size",
   sortOrder: "asc",
 };
+export const colorOptions = {
+  4: "bg-green-400", // Smallest - Light green
+  5: "bg-green-500", // Small - Green
+  6: "bg-yellow-500", // Medium small - Yellow
+  8: "bg-orange-500", // Medium - Orange
+  10: "bg-red-500", // Large - Red
+  12: "bg-red-700", // Largest - Dark red
+};

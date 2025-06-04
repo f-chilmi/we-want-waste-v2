@@ -1,32 +1,18 @@
+import { Skip } from "@/lib/types";
 import { Calendar, CheckCircle, AlertTriangle, ArrowRight } from "lucide-react";
-import React from "react";
+import { colorOptions } from "../constants";
 
 function SkipCard({
   skip,
   calculateTotalPrice,
 }: {
-  skip: {
-    id: number;
-    size: number;
-    hire_period_days: number;
-    price_before_vat: number;
-    vat: number;
-    allowed_on_road: boolean;
-    allows_heavy_waste: boolean;
-  };
+  skip: Skip;
   calculateTotalPrice: (priceBeforeVat: any, vatRate: any) => number;
 }) {
   const totalPrice = calculateTotalPrice(skip.price_before_vat, skip.vat);
-  const getSkipColor = (size) => {
-    const colors = {
-      4: "bg-green-400", // Smallest - Light green
-      5: "bg-green-500", // Small - Green
-      6: "bg-yellow-500", // Medium small - Yellow
-      8: "bg-orange-500", // Medium - Orange
-      10: "bg-red-500", // Large - Red
-      12: "bg-red-700", // Largest - Dark red
-    };
-    return colors[size] || "bg-gray-500";
+
+  const getSkipColor = (size: keyof typeof colorOptions) => {
+    return colorOptions[size] || "bg-gray-500";
   };
   return (
     <div
@@ -36,7 +22,7 @@ function SkipCard({
       <div className="flex items-center gap-2 mb-2">
         <div
           className={`w-8 h-8 ${getSkipColor(
-            skip.size
+            skip.size as keyof typeof colorOptions
           )} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}
         >
           <span className="text-white font-bold text-xs">{skip.size}</span>
@@ -46,7 +32,9 @@ function SkipCard({
             <div
               key={i}
               className={`h-1.5 flex-1 rounded-full ${
-                i < skip.size / 2 ? getSkipColor(skip.size) : "bg-gray-200"
+                i < skip.size / 2
+                  ? getSkipColor(skip.size as keyof typeof colorOptions)
+                  : "bg-gray-200"
               }`}
             />
           ))}

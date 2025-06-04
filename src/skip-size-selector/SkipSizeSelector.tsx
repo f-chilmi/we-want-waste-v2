@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Filter, X, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,9 +25,10 @@ import {
 } from "./constants";
 import Empty from "./components/Empty";
 import SkipCard from "./components/SkipCard";
+import { Skip } from "@/lib/types";
 
 const SkipSizeSelector = () => {
-  const [skips, setSkips] = useState([]);
+  const [skips, setSkips] = useState<Skip[]>([]);
   const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState(INITIAL_FILTERS);
@@ -35,7 +36,7 @@ const SkipSizeSelector = () => {
   const [maxPrice, setMaxPrice] = useState(INITIAL_FILTERS.priceRange[1]);
 
   const calculateTotalPrice = useCallback(
-    (priceBeforeVat, vatRate) =>
+    (priceBeforeVat: number, vatRate: number) =>
       Math.round(priceBeforeVat * (1 + vatRate / 100)),
     []
   );
@@ -52,7 +53,7 @@ const SkipSizeSelector = () => {
         setSkips(data);
 
         // Set price bounds
-        const prices = data.map((skip) =>
+        const prices = data.map((skip: { price_before_vat: any; vat: any }) =>
           calculateTotalPrice(skip.price_before_vat, skip.vat)
         );
         const [minP, maxP] = [Math.min(...prices), Math.max(...prices)];
@@ -90,7 +91,7 @@ const SkipSizeSelector = () => {
     });
 
     return filtered.sort((a, b) => {
-      const getValue = (skip) =>
+      const getValue = (skip: Skip) =>
         filters.sortBy === "price"
           ? calculateTotalPrice(skip.price_before_vat, skip.vat)
           : skip.size;
@@ -101,7 +102,7 @@ const SkipSizeSelector = () => {
   }, [skips, filters, calculateTotalPrice]);
 
   const updateFilter = useCallback(
-    (key, value) => setFilters((prev) => ({ ...prev, [key]: value })),
+    (key: any, value: any) => setFilters((prev) => ({ ...prev, [key]: value })),
     []
   );
 
@@ -125,10 +126,13 @@ const SkipSizeSelector = () => {
     ].filter(Boolean).length;
   }, [filters, minPrice, maxPrice]);
 
-  const handleSortChange = useCallback((value) => {
-    const [sortBy, sortOrder] = value.split("-");
-    setFilters((prev) => ({ ...prev, sortBy, sortOrder }));
-  }, []);
+  const handleSortChange = useCallback(
+    (value: { split: (arg0: string) => [any, any] }) => {
+      const [sortBy, sortOrder] = value.split("-");
+      setFilters((prev) => ({ ...prev, sortBy, sortOrder }));
+    },
+    []
+  );
 
   const TitleComponent = () => (
     <div className="text-center mb-12">
@@ -141,7 +145,13 @@ const SkipSizeSelector = () => {
     </div>
   );
 
-  const FilterSection = ({ label, children }) => (
+  const FilterSection = ({
+    label,
+    children,
+  }: {
+    label: string;
+    children: React.ReactNode;
+  }) => (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-3">
         {label}
@@ -297,7 +307,7 @@ const SkipSizeSelector = () => {
               <span className="text-sm text-gray-600">Sort by:</span>
               <Select
                 value={`${filters.sortBy}-${filters.sortOrder}`}
-                onValueChange={handleSortChange}
+                onValueChange={handleSortChange as any}
               >
                 <SelectTrigger className="w-[180px] bg-background">
                   <SelectValue className="bg-background" />
