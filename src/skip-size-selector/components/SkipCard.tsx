@@ -17,7 +17,7 @@ function SkipCard({
   return (
     <div
       key={skip.id}
-      className="bg-white rounded-xl border border-gray-100 hover:border-gray-200 p-3 transition-all duration-200 hover:shadow-lg group cursor-pointer"
+      className="flex flex-col bg-white rounded-xl border border-gray-100 hover:border-gray-200 p-3 transition-all duration-200 hover:shadow-lg group cursor-pointer"
     >
       <div className="flex items-center gap-2 mb-2">
         <div
@@ -87,7 +87,7 @@ function SkipCard({
         )}
       </div>
 
-      <button className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors flex items-center justify-center group">
+      <button className="mt-auto w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors flex items-center justify-center group">
         Select
         <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-0.5 transition-transform" />
       </button>
